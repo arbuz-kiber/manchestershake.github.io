@@ -79,7 +79,7 @@ document.getElementById('upgradeButton').addEventListener('click', () => {
 document.getElementById('upgradeEnergyButton').addEventListener('click', () => {
     if (counter >= upgradeEnergyCost) {
         counter -= upgradeEnergyCost;
-        maxEnergy = Math.min(maxEnergy + 300, 600); // Увеличиваем максимальную энергию, максимум 600
+        maxEnergy = Math.floor(maxEnergy + 300);
         energy = maxEnergy; // Восстанавливаем энергию до максимума
         upgradeEnergyCost = Math.floor(upgradeEnergyCost * 1.8); // Увеличиваем стоимость улучшения энергии
 
