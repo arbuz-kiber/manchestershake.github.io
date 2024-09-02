@@ -53,6 +53,7 @@ const toggleShopMenu = () => {
     shopMenu.style.display = (shopMenu.style.display === 'none' || shopMenu.style.display === '') ? 'block' : 'none';
 };
 
+// Функция для открытия кейса
 const openCase = () => {
     const casePrice = 250;
     if (counter >= casePrice && !caseCooldown) {
@@ -94,6 +95,7 @@ const openCase = () => {
         // Обновление отображения данных
         document.getElementById('counter').textContent = counter;
 
+        // Отображение сообщения с результатом
         const resultMessage = document.getElementById('resultMessage');
         resultMessage.textContent = result;
         resultMessage.style.opacity = '1';
@@ -110,6 +112,15 @@ const openCase = () => {
         alert("Недостаточно шейк коинов для открытия кейса!");
     }
 };
+
+// Удалите обработчик кликов по изображению кейса
+document.getElementById('caseImage').removeEventListener('click', openCase);
+
+// Используйте функцию напрямую для открытия кейса
+document.getElementById('caseImage').addEventListener('click', () => {
+    openCase();
+});
+
 
 // Обработчики событий
 document.getElementById('shopButton').addEventListener('click', toggleShopMenu);
