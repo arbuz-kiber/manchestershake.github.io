@@ -119,7 +119,6 @@ const caseImageElement = document.getElementById('caseImage');
 caseImageElement.removeEventListener('click', openCase); // Удаляем предыдущий обработчик
 caseImageElement.addEventListener('click', openCase);
 
-
 // Удалите обработчик кликов по изображению кейса
 document.getElementById('caseImage').removeEventListener('click', openCase);
 
@@ -127,7 +126,6 @@ document.getElementById('caseImage').removeEventListener('click', openCase);
 document.getElementById('caseImage').addEventListener('click', () => {
     openCase();
 });
-
 
 // Обработчики событий
 document.getElementById('shopButton').addEventListener('click', toggleShopMenu);
