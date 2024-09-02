@@ -21,6 +21,7 @@ let energyRecoveryRate = storedData.energyRecoveryRate;
 let recoveryInterval = storedData.recoveryInterval;
 let recoveryTimer = null;
 let clickCooldown = false;
+let caseCooldown = false; // Кулдаун для кейса
 
 // Обновление отображения данных на странице
 const updateDisplay = () => {
@@ -55,7 +56,13 @@ const toggleShopMenu = () => {
 // Функция для открытия кейса
 const openCase = () => {
     const casePrice = 250;
-    if (counter >= casePrice) {
+    if (counter >= casePrice && !caseCooldown) {
+        caseCooldown = true; // Включаем кулдаун
+
+        setTimeout(() => {
+            caseCooldown = false; // Сбрасываем кулдаун через 10 секунд
+        }, 10000); // 10 секунд
+
         counter -= casePrice;
         document.getElementById('counter').textContent = counter;
 
@@ -80,12 +87,23 @@ const openCase = () => {
             cumulativeChance += item.chance;
             if (random <= cumulativeChance) {
                 result = `Вам выпал ${item.name}! (${item.clicks} кликов)`;
+                counter += item.clicks; // Добавляем клики
                 break;
             }
         }
 
-        document.getElementById('resultMessage').textContent = result;
+        const resultMessage = document.getElementById('resultMessage');
+        resultMessage.textContent = result;
+        resultMessage.style.opacity = '1';
+
+        // Текст пропадает через пару секунд
+        setTimeout(() => {
+            resultMessage.style.opacity = '0';
+        }, 3000); // 3 секунды
+
         saveData();
+    } else if (caseCooldown) {
+        alert("Подождите 10 секунд, прежде чем открывать следующий кейс!");
     } else {
         alert("Недостаточно шейк коинов для открытия кейса!");
     }
@@ -201,4 +219,5 @@ const saveData = () => {
 
 // Восстановление энергии при загрузке страницы
 updateDisplay();
+
 startRecoveryTimer(); // Запускаем таймер восстановления при загрузке страницы
