@@ -59,8 +59,9 @@ const openCase = () => {
     if (counter >= casePrice && !caseCooldown) {
         caseCooldown = true; // Включаем кулдаун
 
+        // Сбрасываем кулдаун через 10 секунд
         setTimeout(() => {
-            caseCooldown = false; // Сбрасываем кулдаун через 10 секунд
+            caseCooldown = false;
         }, 10000); // 10 секунд
 
         counter -= casePrice;
@@ -112,6 +113,12 @@ const openCase = () => {
         alert("Недостаточно шейк коинов для открытия кейса!");
     }
 };
+
+// Убедитесь, что обработчик события добавляется только один раз
+const caseImageElement = document.getElementById('caseImage');
+caseImageElement.removeEventListener('click', openCase); // Удаляем предыдущий обработчик
+caseImageElement.addEventListener('click', openCase);
+
 
 // Удалите обработчик кликов по изображению кейса
 document.getElementById('caseImage').removeEventListener('click', openCase);
