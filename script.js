@@ -19,6 +19,7 @@ let upgradeCost = storedData.upgradeCost;
 let upgradeEnergyCost = storedData.upgradeEnergyCost;
 const energyRecoveryRate = storedData.energyRecoveryRate;
 const recoveryInterval = storedData.recoveryInterval;
+let clickCooldown = false;
 let recoveryTimer = null;
 
 const updateDisplay = () => {
@@ -31,6 +32,8 @@ const updateDisplay = () => {
 };
 
 document.getElementById('clickButton').addEventListener('click', () => {
+    if (clickCooldown) return
+    
     if (energy >= clickPower) { // Проверяем, достаточно ли энергии для клика
         counter += clickPower;
         energy -= clickPower; // Расход энергии в соответствии с силой клика
@@ -79,11 +82,10 @@ document.getElementById('clickButton').addEventListener('click', () => {
         }, 0);
 
         // Удаление элемента после завершения анимации
+        clickCooldown = true;
         setTimeout(() => {
-            floatingNumber.remove();
-        }, 1000);
-
-        saveData();
+            clickCooldown = false;
+        }, clickCooldownTime);
     } else {
         alert("Недостаточно энергии для клика!");
     }
