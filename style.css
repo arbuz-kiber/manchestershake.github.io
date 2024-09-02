@@ -51,44 +51,17 @@ p {
     0% { transform: scale(1); }
     50% { transform: scale(0.9); }
     100% { transform: scale(1); }
-}
+  }
   
-.clickButton:active {
+  .clickButton:active {
     animation: clickAnimation 0.2s;
-}
+  }
   
-.floating-number {
+  .floating-number {
     position: absolute;
     font-size: 20px;
     color: #ff6347;
     opacity: 1;
     transition: all 1s ease-out;
-}
-
-#shopMenu {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #000;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#shopMenu img {
-    cursor: pointer;
-    width: 100px; /* Размер изображения кейса */
-    display: block;
-    margin: 0 auto;
-}
-
-#shopMenu button {
-    display: block;
-    margin: 10px 0;
-}
-
-#resultMessage {
-    margin-top: 10px;
-    font-weight: bold;
-}
+  }
+  
