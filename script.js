@@ -54,6 +54,35 @@ document.getElementById('clickButton').addEventListener('click', () => {
             }, recoveryInterval);
         }
 
+                const floatingNumber = document.createElement('span');
+        floatingNumber.textContent = `+${clickPower}`;
+        floatingNumber.classList.add('floating-number');
+
+        // Генерация случайного цвета в формате HEX
+        const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+        floatingNumber.style.color = randomColor;
+
+        // Устанавливаем случайные координаты ниже кнопки
+        const rect = event.target.getBoundingClientRect();
+        const randomX = Math.random() * 100 - 50; // Случайное смещение по X (от -50px до 50px)
+        const randomY = Math.random() * 50 + 30;  // Случайное смещение по Y (от 30px до 80px ниже кнопки)
+
+        floatingNumber.style.left = `${rect.left + rect.width / 2 + randomX}px`;
+        floatingNumber.style.top = `${rect.bottom + randomY}px`;
+
+        document.body.appendChild(floatingNumber);
+
+        // Анимация исчезновения всплывающего числа
+        setTimeout(() => {
+            floatingNumber.style.top = `${rect.bottom + randomY - 70}px`; // Сдвиг вверх при исчезновении
+            floatingNumber.style.opacity = '0';
+        }, 0);
+
+        // Удаление элемента после завершения анимации
+        setTimeout(() => {
+            floatingNumber.remove();
+        }, 1000);
+
         saveData();
     } else {
         alert("Недостаточно энергии для клика!");
