@@ -51,19 +51,19 @@ p {
     0% { transform: scale(1); }
     50% { transform: scale(0.9); }
     100% { transform: scale(1); }
-  }
+}
   
-  .clickButton:active {
+.clickButton:active {
     animation: clickAnimation 0.2s;
-  }
+}
   
-  .floating-number {
+.floating-number {
     position: absolute;
     font-size: 20px;
     color: #ff6347;
     opacity: 1;
     transition: all 1s ease-out;
-  }
+}
 
 #shopMenu {
     position: fixed;
@@ -74,9 +74,14 @@ p {
     background-color: white;
     border: 1px solid #000;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Фиксированная ширина меню */
+    max-width: 90%; /* Максимальная ширина для адаптивности */
+    height: auto; /* Высота авто для содержимого */
+    max-height: 80vh; /* Максимальная высота для предотвращения переполнения */
+    overflow-y: auto; /* Прокрутка по вертикали при переполнении */
+    box-sizing: border-box; /* Учитываем padding и border в размерах элемента */
 }
 
 #shopMenu button {
     margin: 5px 0;
 }
-
