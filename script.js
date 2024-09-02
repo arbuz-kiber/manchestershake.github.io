@@ -31,9 +31,11 @@ const updateDisplay = () => {
     document.getElementById('upgradeEnergyCost').textContent = upgradeEnergyCost;
 };
 
-document.getElementById('clickButton').addEventListener('click', () => {
+document.getElementById('clickButton').addEventListener('click', (event) => {
+    if (clickCooldown) return; // Блокируем клик, если кулдаун активен
+
     if (energy >= clickPower) { // Проверяем, достаточно ли энергии для клика
-        clickCooldown = true
+        clickCooldown = true;
         counter += clickPower;
         energy -= clickPower; // Расход энергии в соответствии с силой клика
         document.getElementById('counter').textContent = counter;
@@ -56,15 +58,8 @@ document.getElementById('clickButton').addEventListener('click', () => {
             }, recoveryInterval);
         }
 
-        saveData();
-
-        setTimeout(() => {
-            clickCooldown = false; // Снимаем кулдаун после 0.1 секунды
-        }, 100);
-    } else {
-        alert("Недостаточно энергии для клика!");
-
-                const floatingNumber = document.createElement('span');
+        // Добавление всплывающего числа при клике
+        const floatingNumber = document.createElement('span');
         floatingNumber.textContent = `+${clickPower}`;
         floatingNumber.classList.add('floating-number');
 
@@ -77,6 +72,7 @@ document.getElementById('clickButton').addEventListener('click', () => {
         const randomX = Math.random() * 100 - 50; // Случайное смещение по X (от -50px до 50px)
         const randomY = Math.random() * 50 + 30;  // Случайное смещение по Y (от 30px до 80px ниже кнопки)
 
+        floatingNumber.style.position = 'absolute';
         floatingNumber.style.left = `${rect.left + rect.width / 2 + randomX}px`;
         floatingNumber.style.top = `${rect.bottom + randomY}px`;
 
@@ -94,6 +90,11 @@ document.getElementById('clickButton').addEventListener('click', () => {
         }, 1000);
 
         saveData();
+
+        // Снимаем кулдаун через 0.1 секунду
+        setTimeout(() => {
+            clickCooldown = false;
+        }, 100);
     } else {
         alert("Недостаточно энергии для клика!");
     }
