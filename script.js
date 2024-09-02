@@ -7,7 +7,7 @@ const storedData = JSON.parse(localStorage.getItem('clickerData')) || {
     upgradeCost: 300,
     upgradeEnergyCost: 1000,
     energyRecoveryRate: 1,
-    recoveryInterval: 500,
+    recoveryInterval: 500, // Интервал восстановления энергии
 };
 
 // Обновление глобальных переменных
@@ -17,8 +17,8 @@ let energy = storedData.energy;
 let maxEnergy = storedData.maxEnergy;
 let upgradeCost = storedData.upgradeCost;
 let upgradeEnergyCost = storedData.upgradeEnergyCost;
-const energyRecoveryRate = storedData.energyRecoveryRate;
-const recoveryInterval = storedData.recoveryInterval;
+let energyRecoveryRate = storedData.energyRecoveryRate;
+let recoveryInterval = storedData.recoveryInterval;
 let recoveryTimer = null;
 let clickCooldown = false;
 
@@ -31,6 +31,20 @@ const updateDisplay = () => {
     document.getElementById('upgradeEnergyCost').textContent = upgradeEnergyCost;
 };
 
+// Функция для запуска таймера восстановления энергии
+const startRecoveryTimer = () => {
+    if (recoveryTimer) {
+        clearInterval(recoveryTimer);
+    }
+    recoveryTimer = setInterval(() => {
+        if (energy < maxEnergy) {
+            energy = Math.min(energy + energyRecoveryRate * clickPower, maxEnergy); // Восстанавливаем энергию
+            document.getElementById('energy').textContent = energy;
+            saveData();
+        }
+    }, recoveryInterval);
+};
+
 document.getElementById('clickButton').addEventListener('click', (event) => {
     if (clickCooldown) return; // Блокируем клик, если кулдаун активен
 
@@ -41,22 +55,7 @@ document.getElementById('clickButton').addEventListener('click', (event) => {
         document.getElementById('counter').textContent = counter;
         document.getElementById('energy').textContent = energy;
 
-        // Сбросить таймер восстановления при клике
-        if (recoveryTimer) {
-            clearInterval(recoveryTimer);
-            recoveryTimer = null;
-        }
-
-        // Запустить таймер восстановления после последнего клика
-        if (!recoveryTimer) {
-            recoveryTimer = setInterval(() => {
-                if (energy < maxEnergy) {
-                    energy = Math.min(energy + energyRecoveryRate * clickPower, maxEnergy); // Восстанавливаем энергию
-                    document.getElementById('energy').textContent = energy;
-                    saveData();
-                }
-            }, recoveryInterval);
-        }
+        startRecoveryTimer(); // Перезапуск таймера восстановления
 
         // Добавление всплывающего числа при клике
         const floatingNumber = document.createElement('span');
@@ -94,7 +93,7 @@ document.getElementById('clickButton').addEventListener('click', (event) => {
         // Снимаем кулдаун через 0.1 секунду
         setTimeout(() => {
             clickCooldown = false;
-        }, 200);
+        }, 100);
     } else {
         alert("Недостаточно энергии для клика!");
     }
@@ -152,12 +151,4 @@ const saveData = () => {
 // Восстановление энергии при загрузке страницы
 updateDisplay();
 
-if (energy < maxEnergy && !recoveryTimer) {
-    recoveryTimer = setInterval(() => {
-        if (energy < maxEnergy) {
-            energy = Math.min(energy + energyRecoveryRate * clickPower, maxEnergy); // Восстанавливаем энергию
-            document.getElementById('energy').textContent = energy;
-            saveData();
-        }
-    }, recoveryInterval);
-}
+startRecoveryTimer(); // Запускаем таймер восстановления при загрузке страницы
