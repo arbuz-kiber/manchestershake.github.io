@@ -39,23 +39,38 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>МАНЧЕСТЕР ШЕЙК</h1>
-        <img id="clickButton" src="manchestershake.jpg" alt="аааааа картинка не прогрузилась" class="clickable-image">
-        <p>Шейк коины: <span id="counter">0</span></p>
-        <p>Мощность клика: <span id="clickPower">1</span></p>
-        <button id="upgradeButton">Улучшить клик (стоимость: <span id="upgradeCost">300</span>)</button>
-        <p>Энергия: <span id="energy">300</span> / <span id="maxEnergy">300</span></p>
-        <button id="upgradeEnergyButton">Улучшить энергию (стоимость: <span id="upgradeEnergyCost">1000</span>)</button>
-        <button id="shopButton">Магазин</button>
-
-        <div id="shopMenu">
-            <h2>Магазин</h2>
-            <img id="caseImage" src="case.jpg" alt="Кейс Манчестер Шейк">
-            <div id="resultMessage"></div>
-            <button id="closeShop">Закрыть</button>
-        </div>
+    <!-- Меню магазина -->
+    <div id="shopMenu">
+        <img id="caseImage" src="case-image.png" alt="Кейс">
+        <button id="closeShop">Закрыть магазин</button>
+        <div id="resultMessage"></div>
     </div>
-    <script src="script.js"></script>
+
+    <button id="shopButton">Открыть магазин</button>
+
+    <script>
+        // Функция для изменения изображения кейса
+        const changeCaseImage = (newImageUrl) => {
+            const caseImageElement = document.getElementById('caseImage');
+            if (caseImageElement) {
+                caseImageElement.src = newImageUrl;
+            } else {
+                console.error("Элемент с id 'caseImage' не найден.");
+            }
+        };
+
+        // Пример использования: смена изображения кейса
+        // Замените URL на адрес нового изображения
+        changeCaseImage('https://example.com/new-case-image.png');
+
+        // Пример кода для открытия и закрытия магазина
+        const toggleShopMenu = () => {
+            const shopMenu = document.getElementById('shopMenu');
+            shopMenu.style.display = (shopMenu.style.display === 'none' || shopMenu.style.display === '') ? 'block' : 'none';
+        };
+
+        document.getElementById('shopButton').addEventListener('click', toggleShopMenu);
+        document.getElementById('closeShop').addEventListener('click', toggleShopMenu);
+    </script>
 </body>
 </html>
