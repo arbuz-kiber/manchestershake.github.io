@@ -22,6 +22,7 @@ let recoveryInterval = storedData.recoveryInterval;
 let recoveryTimer = null;
 let clickCooldown = false;
 
+// Обновление отображения данных на странице
 const updateDisplay = () => {
     document.getElementById('counter').textContent = counter;
     document.getElementById('clickPower').textContent = clickPower;
@@ -45,19 +46,55 @@ const startRecoveryTimer = () => {
     }, recoveryInterval);
 };
 
-const shopButton = document.getElementById('shopButton');
-const shopMenu = document.getElementById('shopMenu');
-const closeShopButton = document.getElementById('closeShop');
-
+// Функция для открытия и закрытия меню магазина
 const toggleShopMenu = () => {
+    const shopMenu = document.getElementById('shopMenu');
     shopMenu.style.display = (shopMenu.style.display === 'none' || shopMenu.style.display === '') ? 'block' : 'none';
 };
 
-// Открытие магазина по клику на кнопку "Магазин"
-shopButton.addEventListener('click', toggleShopMenu);
+// Функция для открытия кейса
+const openCase = () => {
+    const casePrice = 250;
+    if (counter >= casePrice) {
+        counter -= casePrice;
+        document.getElementById('counter').textContent = counter;
 
-// Закрытие магазина по клику на кнопку "Закрыть"
-closeShopButton.addEventListener('click', toggleShopMenu);
+        // Шанс выпадения каждого предмета
+        const items = [
+            { name: 'Аня', clicks: 100, chance: 45 },
+            { name: 'Тихон', clicks: 175, chance: 20 },
+            { name: 'Ваван', clicks: 250, chance: 10 },
+            { name: 'Маслик', clicks: 280, chance: 7 },
+            { name: 'Ярушка', clicks: 300, chance: 5 },
+            { name: 'Лука', clicks: 325, chance: 3 },
+            { name: 'Фурик', clicks: 400, chance: 1 },
+            { name: 'ДМИТРИЙ ЮРЬЕВИЧ', clicks: 1000, chance: 0.1 }
+        ];
+
+        // Генерация случайного числа от 0 до 100 для определения результата
+        const random = Math.random() * 100;
+        let cumulativeChance = 0;
+        let result = '';
+
+        for (const item of items) {
+            cumulativeChance += item.chance;
+            if (random <= cumulativeChance) {
+                result = `Вам выпал ${item.name}! (${item.clicks} кликов)`;
+                break;
+            }
+        }
+
+        document.getElementById('resultMessage').textContent = result;
+        saveData();
+    } else {
+        alert("Недостаточно шейк коинов для открытия кейса!");
+    }
+};
+
+// Обработчики событий
+document.getElementById('shopButton').addEventListener('click', toggleShopMenu);
+document.getElementById('closeShop').addEventListener('click', toggleShopMenu);
+document.getElementById('caseImage').addEventListener('click', openCase);
 
 document.getElementById('clickButton').addEventListener('click', (event) => {
     if (clickCooldown) return; // Блокируем клик, если кулдаун активен
@@ -164,5 +201,4 @@ const saveData = () => {
 
 // Восстановление энергии при загрузке страницы
 updateDisplay();
-
 startRecoveryTimer(); // Запускаем таймер восстановления при загрузке страницы
