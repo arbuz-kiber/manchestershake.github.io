@@ -5,64 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кликер</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Встроенные стили для базового отображения */
-        #shopMenu {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #000;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: none; /* Начально скрываем меню */
-            width: 300px; /* Фиксированная ширина меню */
-            max-width: 90%; /* Максимальная ширина для адаптивности */
-            height: auto; /* Высота авто для содержимого */
-            max-height: 80vh; /* Максимальная высота для предотвращения переполнения */
-            overflow-y: auto; /* Прокрутка по вертикали при переполнении */
-            box-sizing: border-box; /* Учитываем padding и border в размерах элемента */
-        }
-
-        #shopMenu img {
-            cursor: pointer;
-            width: 100px; /* Размер изображения кейса */
-            display: block;
-            margin: 0 auto;
-        }
-
-        #shopMenu button {
-            display: block;
-            margin: 10px 0;
-        }
-
-        #resultMessage {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
-    <!-- Меню магазина -->
+    <div class="container">
+        <button id="shopButton">Открыть магазин</button>
+        <button id="clickButton">Клик</button>
+        <button id="upgradeButton">Улучшить</button>
+        <button id="upgradeEnergyButton">Улучшить Энергию</button>
+        <p>Клики: <span id="counter">0</span></p>
+        <p>Сила клика: <span id="clickPower">1</span></p>
+        <p>Энергия: <span id="energy">300</span></p>
+        <p>Макс Энергия: <span id="maxEnergy">300</span></p>
+        <p>Стоимость улучшения: <span id="upgradeCost">300</span></p>
+        <p>Стоимость улучшения энергии: <span id="upgradeEnergyCost">1000</span></p>
+    </div>
+
     <div id="shopMenu">
         <img id="caseImage" src="https://example.com/old-case-image.png" alt="Кейс">
         <button id="closeShop">Закрыть магазин</button>
         <div id="resultMessage"></div>
     </div>
 
-    <button id="shopButton">Открыть магазин</button>
-
-    <script>
-        // Функция для открытия и закрытия магазина
-        const toggleShopMenu = () => {
-            const shopMenu = document.getElementById('shopMenu');
-            shopMenu.style.display = (shopMenu.style.display === 'none' || shopMenu.style.display === '') ? 'block' : 'none';
-        };
-
-        document.getElementById('shopButton').addEventListener('click', toggleShopMenu);
-        document.getElementById('closeShop').addEventListener('click', toggleShopMenu);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
