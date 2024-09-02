@@ -6,7 +6,7 @@ const storedData = JSON.parse(localStorage.getItem('clickerData')) || {
     maxEnergy: 300,
     upgradeCost: 300,
     upgradeEnergyCost: 1000,
-    energyRecoveryRate: 1,
+    energyRecoveryRate: 0.5,
     recoveryInterval: 1000,
 };
 
