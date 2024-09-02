@@ -94,7 +94,7 @@ document.getElementById('clickButton').addEventListener('click', (event) => {
         // Снимаем кулдаун через 0.1 секунду
         setTimeout(() => {
             clickCooldown = false;
-        }, 100);
+        }, 200);
     } else {
         alert("Недостаточно энергии для клика!");
     }
