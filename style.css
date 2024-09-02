@@ -64,4 +64,19 @@ p {
     opacity: 1;
     transition: all 1s ease-out;
   }
-  
+
+#shopMenu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#shopMenu button {
+    margin: 5px 0;
+}
+
