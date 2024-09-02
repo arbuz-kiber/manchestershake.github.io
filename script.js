@@ -21,7 +21,7 @@ const energyRecoveryRate = storedData.energyRecoveryRate;
 const recoveryInterval = storedData.recoveryInterval;
 let recoveryTimer = null;
 let clickCooldown = false; // Переменная для отслеживания кулдауна клика
- // Время кулдауна в миллисекундах (например, 500 мс)
+const clickCooldownTime = 200
 
 const updateDisplay = () => {
     document.getElementById('counter').textContent = counter;
