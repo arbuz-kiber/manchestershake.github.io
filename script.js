@@ -45,6 +45,20 @@ const startRecoveryTimer = () => {
     }, recoveryInterval);
 };
 
+const shopButton = document.getElementById('shopButton');
+const shopMenu = document.getElementById('shopMenu');
+const closeShopButton = document.getElementById('closeShop');
+
+const toggleShopMenu = () => {
+    shopMenu.style.display = (shopMenu.style.display === 'none' || shopMenu.style.display === '') ? 'block' : 'none';
+};
+
+// Открытие магазина по клику на кнопку "Магазин"
+shopButton.addEventListener('click', toggleShopMenu);
+
+// Закрытие магазина по клику на кнопку "Закрыть"
+closeShopButton.addEventListener('click', toggleShopMenu);
+
 document.getElementById('clickButton').addEventListener('click', (event) => {
     if (clickCooldown) return; // Блокируем клик, если кулдаун активен
 
