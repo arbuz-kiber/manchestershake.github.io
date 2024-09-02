@@ -53,7 +53,6 @@ const toggleShopMenu = () => {
     shopMenu.style.display = (shopMenu.style.display === 'none' || shopMenu.style.display === '') ? 'block' : 'none';
 };
 
-// Функция для открытия кейса
 const openCase = () => {
     const casePrice = 250;
     if (counter >= casePrice && !caseCooldown) {
@@ -91,6 +90,9 @@ const openCase = () => {
                 break;
             }
         }
+
+        // Обновление отображения данных
+        document.getElementById('counter').textContent = counter;
 
         const resultMessage = document.getElementById('resultMessage');
         resultMessage.textContent = result;
