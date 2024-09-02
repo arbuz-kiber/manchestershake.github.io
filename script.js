@@ -7,7 +7,6 @@ const storedData = JSON.parse(localStorage.getItem('clickerData')) || {
     upgradeCost: 300,
     upgradeEnergyCost: 1000,
     energyRecoveryRate: 1,
-    recoveryInterval: 500,
 };
 
 // Обновление глобальных переменных
