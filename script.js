@@ -19,8 +19,9 @@ let upgradeCost = storedData.upgradeCost;
 let upgradeEnergyCost = storedData.upgradeEnergyCost;
 const energyRecoveryRate = storedData.energyRecoveryRate;
 const recoveryInterval = storedData.recoveryInterval;
-let clickCooldown = false;
 let recoveryTimer = null;
+let clickCooldown = false; // Переменная для отслеживания кулдауна клика
+const clickCooldownTime = 500; // Время кулдауна в миллисекундах (например, 500 мс)
 
 const updateDisplay = () => {
     document.getElementById('counter').textContent = counter;
@@ -31,9 +32,9 @@ const updateDisplay = () => {
     document.getElementById('upgradeEnergyCost').textContent = upgradeEnergyCost;
 };
 
-document.getElementById('clickButton').addEventListener('click', () => {
-    if (clickCooldown) return
-    
+document.getElementById('clickButton').addEventListener('click', (event) => {
+    if (clickCooldown) return; // Блокируем клик, если кулдаун активен
+
     if (energy >= clickPower) { // Проверяем, достаточно ли энергии для клика
         counter += clickPower;
         energy -= clickPower; // Расход энергии в соответствии с силой клика
@@ -82,6 +83,13 @@ document.getElementById('clickButton').addEventListener('click', () => {
         }, 0);
 
         // Удаление элемента после завершения анимации
+        setTimeout(() => {
+            floatingNumber.remove();
+        }, 1000);
+
+        saveData();
+
+        // Включаем кулдаун
         clickCooldown = true;
         setTimeout(() => {
             clickCooldown = false;
@@ -152,3 +160,4 @@ if (energy < maxEnergy && !recoveryTimer) {
         }
     }, recoveryInterval);
 }
+
