@@ -18,14 +18,11 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             display: none; /* Начально скрываем меню */
-            width: 300px; /* Задаем фиксированную ширину для меню */
-            box-sizing: border-box; /* Учитываем padding и border в ширине и высоте */
         }
 
         #shopMenu img {
             cursor: pointer;
-            width: 100%; /* Устанавливаем ширину изображения в 100% от ширины контейнера */
-            height: auto; /* Автоматическая высота для сохранения пропорций изображения */
+            width: 100px; /* Размер изображения кейса */
             display: block;
             margin: 0 auto;
         }
@@ -33,17 +30,6 @@
         #shopMenu button {
             display: block;
             margin: 10px 0;
-            width: 100%; /* Ширина кнопки в 100% от ширины контейнера */
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #shopMenu button:hover {
-            background-color: #0056b3;
         }
 
         #resultMessage {
@@ -55,7 +41,7 @@
 <body>
     <!-- Меню магазина -->
     <div id="shopMenu">
-        <img id="caseImage" src="images/new-case-image.png" alt="Кейс">
+        <img id="caseImage" src="https://example.com/old-case-image.png" alt="Кейс">
         <button id="closeShop">Закрыть магазин</button>
         <div id="resultMessage"></div>
     </div>
@@ -75,7 +61,7 @@
 
         // Пример использования: смена изображения кейса
         // Замените URL на путь к картинке в вашем проекте
-        changeCaseImage('images/new-case-image.png');
+        changeCaseImage('https://example.com/new-case-image.png');
 
         // Пример кода для открытия и закрытия магазина
         const toggleShopMenu = () => {
